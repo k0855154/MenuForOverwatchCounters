@@ -10,7 +10,6 @@ class SampleApp(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         self.title_font = tkfont.Font(family='Helvetica', size=18, weight="bold", slant="italic")
-        
         # the container is where we'll stack a bunch of frames
         # on top of each other, then the one we want visible
         # will be raised above the others
@@ -18,7 +17,6 @@ class SampleApp(tk.Tk):
         container.pack(side="top", fill="both", expand=True)
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
-
 
         self.frames = {}
         for F in (HeroPicker, Home, HeroInfo, PageOne, PageTwo, Ana, Ashe,Baptiste, Bastion,Brigitte,DVa,Doomfist,Genji,Hanzo,Junkrat,Lucio,McCree,Mei,Mercy,Moira,Orisa,Pharah,Reaper,Reinhardt,Roadhog,Sigma,Soldier76,Sombra,Symmetra,Torbjorn,Tracer,Widowmaker,Winston,WreakingBall,Zarya,Zenyatta):
@@ -38,7 +36,6 @@ class SampleApp(tk.Tk):
         frame = self.frames[page_name]
         frame.tkraise()
 
-
 class HeroInfo(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -49,7 +46,7 @@ class HeroInfo(tk.Frame):
         controller.title("Hero Info")
         homebutton = tk.Button(self, text="Home",fg="Black",
                             command=lambda: controller.show_frame("Home"))
-
+        controller.geometry("750x400")
 
         button1 = tk.Button(self, text="Ana",fg="Green",
                             command=lambda: controller.show_frame("Ana"))
@@ -511,24 +508,50 @@ class Zenyatta(tk.Frame):
 class HeroPicker(tk.Frame):
 
     def __init__(self, parent, controller):
+        EHeroList = []
+        def EAnaAppend():
+            if len(EHeroList) > 6:
+                print("Hero List Filled")
+            else:
+                EHeroList.append("Ana")
+            return EHeroList
+        def EAsheAppend():
+            if len(EHeroList) > 6:
+                print("Hero List Filled")
+            else:
+                EHeroList.append("Ashe")
+            return EHeroList
+        def EBaptisteAppend():
+            if len(EHeroList) > 6:
+                print("Hero List Filled")
+            else:
+                EHeroList.append("Baptiste")
+            return EHeroList
+        def EBastionAppend():
+            if len(EHeroList) > 6:
+                print("Hero List Filled")
+            else:
+                EHeroList.append("Bastion")
+            return EHeroList
+       
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="Hero Information", font=controller.title_font)
+        label = tk.Label(self, text=EHeroList, font=controller.title_font)
         label.grid(row = 4, column = 0)
         controller.title("Hero Info")
         homebutton = tk.Button(self, text="Home",fg="Black",
                             command=lambda: controller.show_frame("Home"))
-        helv12 = tkfont.Font(family='Helvetica', size=10, weight='bold')
-        tkinter.ttk.Separator(self,orient="vertical").grid(column=9,row=0,rowspan=10,sticky='ns')
-        tkinter.ttk.Separator(self,orient="horizontal").grid(column=0,row=3,columnspan=20,sticky='ew')
-        button1 = tk.Button(self, text="Ana",fg="Green",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Ana"))
-        button2 = tk.Button(self, text="Ashe",fg="Red",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Ashe"))
+        helv12 = tkfont.Font(family='Helvetica', size=8, weight='bold')
+        tkinter.ttk.Separator(self,orient="vertical").place(rely = 1,relx = 0)
+        tkinter.ttk.Separator(self,orient="horizontal").grid(column=0,row=3,columnspan=20,sticky='we')
+        EAna = tk.Button(self, text="Ana",fg="Green",height=1,width=9,anchor="center",font=helv12,
+                            command=lambda: EAnaAppend)
+        EAshe = tk.Button(self, text="Ashe",fg="Red",height=1,width=9,anchor="center",font=helv12,
+                            command=lambda: EAsheAppend)
         button3 = tk.Button(self, text="Baptiste",fg="Green",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Baptiste"))
+                            command=lambda: EBaptisteAppend)
         button4 = tk.Button(self, text="Bastion",fg="Red",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Bastion"))
+                            command=lambda: EBastionAppend)
         button5 = tk.Button(self, text="Brigitte", fg="Green",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Brigitte"))
         button6 = tk.Button(self, text="D.Va",fg="Blue",height=1,width=9,anchor="center",font=helv12,
@@ -538,89 +561,106 @@ class HeroPicker(tk.Frame):
         button8 = tk.Button(self, text="Genji",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Genji"))
         button9 = tk.Button(self, text="Hanzo",fg="Red",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Hanzo"))
+                            command=EBastionAppend)
         button10 = tk.Button(self, text="Junkrat",fg="Red",height=1,width=9,anchor="center",font=helv12,
-                            command=lambda: controller.show_frame("Junkrat"))
+                            command=lambda: print(EHeroList))
         button11 = tk.Button(self, text="Lucio",fg="Green",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Lucio"))
         button12 = tk.Button(self, text="McCree",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("McCree"))
-        button13 = tk.Button(self, text="Mei",fg="Red",
+        button13 = tk.Button(self, text="Mei",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Mei"))
-        button14 = tk.Button(self, text="Mercy",fg="Green",
+        button14 = tk.Button(self, text="Mercy",fg="Green",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Mercy"))
-        button15 = tk.Button(self, text="Moira",fg="Green",
+        button15 = tk.Button(self, text="Moira",fg="Green",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Moira"))
-        button16 = tk.Button(self, text="Orisa",fg="Blue",
+        button16 = tk.Button(self, text="Orisa",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Orisa"))
-        button17 = tk.Button(self, text="Pharah",fg="Red",
+        button17 = tk.Button(self, text="Pharah",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Pharah"))
-        button18 = tk.Button(self, text="Reaper",fg="Red",
+        button18 = tk.Button(self, text="Reaper",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Reaper"))
-        button19 = tk.Button(self, text="Reinhardt",fg="Blue",
+        button19 = tk.Button(self, text="Reinhardt",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Reinhardt"))
-        button20 = tk.Button(self, text="Roadhog",fg="Blue",
+        button20 = tk.Button(self, text="Roadhog",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Roadhog"))
-        button21 = tk.Button(self, text="Sigma",fg="Blue",
+        button21 = tk.Button(self, text="Sigma",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Sigma"))
-        button22 = tk.Button(self, text="Soldier 76",fg="Red",
+        button22 = tk.Button(self, text="Soldier 76",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Soldier76"))
-        button23 = tk.Button(self, text="Sombra",fg="Red",
+        button23 = tk.Button(self, text="Sombra",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Sombra"))
-        button24 = tk.Button(self, text="Symmetra",fg="Red",
+        button24 = tk.Button(self, text="Symmetra",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Symmetra"))
-        button25 = tk.Button(self, text="Torbjorn",fg="Red",
+        button25 = tk.Button(self, text="Torbjorn",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Torbjorn"))
-        button26 = tk.Button(self, text="Tracer",fg="Red",
+        button26 = tk.Button(self, text="Tracer",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Tracer"))
-        button27 = tk.Button(self, text="Widowmaker",fg="Red",
+        button27 = tk.Button(self, text="Widowmaker",fg="Red",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Widowmaker"))
-        button28 = tk.Button(self, text="Winston",fg="Blue",
+        button28 = tk.Button(self, text="Winston",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Winston"))
-        button29 = tk.Button(self, text="Wreaking Ball",fg="Blue",
+        button29 = tk.Button(self, text="Wreaking Ball",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("WreakingBall"))
-        button30 = tk.Button(self, text="Zarya",fg="Blue",
+        button30 = tk.Button(self, text="Zarya",fg="Blue",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Zarya"))
-        button31 = tk.Button(self, text="Zenyatta",fg="Green",
+        button31 = tk.Button(self, text="Zenyatta",fg="Green",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("Zenyatta"))
-        button32 = tk.Button(self, text="Hero",
+        button32 = tk.Button(self, text="Hero",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("PageOne"))
-        button33 = tk.Button(self, text="Hero",
+        button33 = tk.Button(self, text="Hero",height=1,width=9,anchor="center",font=helv12,
                             command=lambda: controller.show_frame("PageTwo"))
         homebutton.grid(row = 0, column = 1)
-        button1.place(relx = 0.1, rely = 0.2, anchor = "e")
-        button2.place(relx = 0.2, rely = 0.2, anchor = "e")
-        button3.place(relx = 0.3, rely = 0.2, anchor = "e")
-        button4.place(relx = 0.4, rely = 0.2, anchor = "e")
-        button5.place(relx = 0.5, rely = 0.2, anchor = "e")
-        button6.place(relx = 0.6, rely = 0.2, anchor = "e")
-        button7.place(relx = 0.7, rely = 0.2, anchor = "e")
-        button8.place(relx = 0.8, rely = 0.2, anchor = "e")
-        button9.place(relx = 0.9, rely = 0.2, anchor = "e")
-        button10.grid(row = 1, column = 5)
-        button11.grid(row = 3, column = 1)
-        button12.grid(row = 3, column = 2)
-        button13.grid(row = 4, column = 3)
-        button14.grid(row = 4, column = 4)
-        button15.grid(row = 4, column = 5)
-        button16.grid(row = 4, column = 0)
-        button17.grid(row = 5, column = 1)
-        button18.grid(row = 5, column = 2)
-        button19.grid(row = 5, column = 3)
-        button20.grid(row = 5, column = 4)
-        button21.grid(row = 6, column = 5)
-        button22.grid(row = 6, column = 0)
-        button23.grid(row = 6, column = 1)
-        button24.grid(row = 6, column = 2)
-        button25.grid(row = 7, column = 3)
-        button26.grid(row = 7, column = 4)
-        button27.grid(row = 7, column = 5)
-        button28.grid(row = 7, column = 0)
-        button29.grid(row = 8, column = 1)
-        button30.grid(row = 8, column = 2)
-        button31.grid(row = 8, column = 3)
-        button32.grid(row = 8, column = 4)
-        button33.grid(row = 9, column = 5)
+        
+        dxadd = 0.1
+        dx1 = 0.1
+        dx2 = dx1 + dxadd
+        dx3 = dx2 + dxadd
+        dx4 = dx3 + dxadd
+        dx5 = dx4 + dxadd
+        dy_add = 0.1
+        dy1 = 0.2
+        dy2 = dy1 + dy_add
+        dy3 = dy2 + dy_add
+        dy4 = dy3 + dy_add
+        dy5 = dy4 + dy_add
+        dy6 = dy5 + dy_add
+        dy7 = dy6 + dy_add
+        dy8 = dy7 + dy_add
+        loc = "e"
+        EAna.place(relx = dx1, rely = dy1, anchor = loc)
+        EAshe.place(relx = dx2, rely = dy1, anchor = loc)
+        button3.place(relx = dx3, rely = dy1, anchor = loc)
+        button4.place(relx = dx4, rely = dy1, anchor = loc)
+        button5.place(relx = dx5, rely = dy1, anchor = loc)
+        button6.place(relx = dx1, rely = dy2, anchor = loc)
+        button7.place(relx = dx2, rely = dy2, anchor = loc)
+        button8.place(relx = dx3, rely = dy2, anchor = loc)
+        button9.place(relx = dx4, rely = dy2, anchor = loc)
+        button10.place(relx = dx5, rely = dy2, anchor = loc)
+        button11.place(relx = dx1, rely = dy3, anchor = loc)
+        button12.place(relx = dx2, rely = dy3, anchor = loc)
+        button13.place(relx = dx3, rely = dy3, anchor = loc)
+        button14.place(relx = dx4, rely = dy3, anchor = loc)
+        button15.place(relx = dx5, rely = dy3, anchor = loc)
+        button16.place(relx = dx1, rely = dy4, anchor = loc)
+        button17.place(relx = dx2, rely = dy4, anchor = loc)
+        button18.place(relx = dx3, rely = dy4, anchor = loc)
+        button19.place(relx = dx4, rely = dy4, anchor = loc)
+        button20.place(relx = dx5, rely = dy4, anchor = loc)
+        button21.place(relx = dx1, rely = dy5, anchor = loc)
+        button22.place(relx = dx2, rely = dy5, anchor = loc)
+        button23.place(relx = dx3, rely = dy5, anchor = loc)
+        button24.place(relx = dx4, rely = dy5, anchor = loc)
+        button25.place(relx = dx5, rely = dy5, anchor = loc)
+        button26.place(relx = dx1, rely = dy6, anchor = loc)
+        button27.place(relx = dx2, rely = dy6, anchor = loc)
+        button28.place(relx = dx3, rely = dy6, anchor = loc)
+        button29.place(relx = dx4, rely = dy6, anchor = loc)
+        button30.place(relx = dx5, rely = dy6, anchor = loc)
+        button31.place(relx = dx1, rely = dy7, anchor = loc)
+        button32.place(relx = dx2, rely = dy8, anchor = loc)
+        button33.place(relx = dx3, rely = dy8, anchor = loc)
 
 
         FAna = tk.Button(self, text="Ana",fg="Green",
