@@ -2,7 +2,8 @@ import tkinter as tk           # python 3
 from tkinter import font  as tkfont # python 3
 import tkinter.ttk
 import tkinter.colorchooser
-#import Tkinter as tk     # python 2
+from tkinter import StringVar, IntVar     # python 2
+import tkinter.Calendar
 #import tkFont as tkfont  # python 2
 EHeroList = []
 FHeroList = []
@@ -192,6 +193,7 @@ class Home(tk.Frame):
         button = tk.Button(self, text="Hero Picker",
                            command=lambda: controller.show_frame("HeroPicker"))
         button.pack()
+        button.pack
 
 class Ana(tk.Frame):
 
@@ -513,101 +515,91 @@ class HeroPicker(tk.Frame):
     def __init__(self, parent, controller):
         import main
         import OverwatchData
-        Hero = []
-        HeroL = []
-        LocationHero = []
-        ListOfCounters = []
-        def getHero(Hero):
-            HeroL = []
-            for s in range(len(EHeroList)):
-                HeroL.append(EHeroList[s])
-            #Get Location of Hero in List for Counter Finding
-            for a in range(len(HeroL)):
-              LocationHero.append(main.HeroList.index(HeroL[a]))
-            return LocationHero, Hero
-        
-        def getCounters(LocationHero, HeroL):
-            for o in range(len(HeroL)):
-                ListOfCounters.append(main.OverwatchCounters[LocationHero[o-1]])
-                print(ListOfCounters)
-            
-        
-        def repeat(NumRowsToAdd):
-            x,y = getHero(Hero)
-            LocationHero = x
-            getCounters(LocationHero, HeroL)  
-            if len(HeroL) == 1:
-                #Hero1S = main.ListSynergies[0]
-                print("Number 5")
-                NumRowsToAdd = 5
-            elif len(HeroL) == 2:
-                
-                #Hero2S = main.ListSynergies[1]
-                print("Number 4")
-                NumRowsToAdd = 4
-                return NumRowsToAdd
-            elif len(HeroL) == 3:
-                
-                #Hero3S = main.ListSynergies[2]
-                print("Number 3")
-                NumRowsToAdd = 3
-            elif len(HeroL) == 4:
-                
-                #Hero4S = main.ListSynergies[3]
-                print("Number 2")
-                NumRowsToAdd = 2
-            elif len(HeroL) == 5:
-        
-                #Hero5S = main.ListSynergies[4]
-                NumRowsToAdd = 1
-            elif len(HeroL) == 6:
-                #Hero6S = main.ListSynergies[5]
-                print("Number 1")
-                NumRowsToAdd = 0
-            rows = 0
-            for rows in range(NumRowsToAdd + 1):
-              ListOfCounters.append(OverwatchData.Nothing.NothingCounters)
-              rows =+ 1
-            print(ListOfCounters)
-            HeroSum1 = []
-            Hero1C = ListOfCounters[0]
-            Hero2C = ListOfCounters[1]
-            Hero3C = ListOfCounters[2]
-            Hero4C = ListOfCounters[3]
-            Hero5C = ListOfCounters[4]
-            Hero6C = ListOfCounters[5]
-            for c in range(30):
-              HeroSum1.append(Hero1C[c] + Hero2C[c] + Hero3C[c] + Hero4C[c] + Hero5C[c] + Hero6C[c])
-            for d in range(30):
-                print(main.HeroList[d],HeroSum1[d])
-                d =+ 1
-            print(ListOfCounters)
-            print(Hero)
-            print(Hero1C)
-            print(Hero2C)
-            print(Hero3C)
-            print(Hero4C)
-            print(Hero5C)
-            print(Hero6C)
-            print(LocationHero)
-            print(HeroL)
-            print(len(HeroL)-1)
+        Locations = []
         def Calculations():
-            NumRowsToAdd = 6-len(EHeroList)
-            HeroL = []
-            repeat(NumRowsToAdd)
-            repeat(NumRowsToAdd)
-            
-                 
-    
-        
-        
+            EnHero = EHeroList[len(EHeroList)-1]
+            ELHero = EnHero
+            print(ELHero)
+            if ELHero in main.HeroList:
+                print(ELHero)
+                def findHero():
+                    HeroLocation = main.HeroList.index(ELHero)
+                    print(HeroLocation)
+                    Locations.append(HeroLocation)
+                    print(Locations)
+                def getScores():
+                     ListCounters = []
+                     for i in range(len(Locations)):
+                         ListCounters.append(main.OverwatchCounters[Locations[i]])
+                         print(ListCounters)
+                     if len(Locations) == 1:
+                          #Hero1S = main.ListSynergies[0]
+                          print("Number 5")
+                          NumRowsToAdd = 5
+                     elif len(Locations) == 2:
+                          #Hero2S = main.ListSynergies[1]
+                          print("Number 4")
+                          NumRowsToAdd = 4
+                          return NumRowsToAdd
+                     elif len(Locations) == 3:
+                          #Hero3S = main.ListSynergies[2]
+                          print("Number 3")
+                          NumRowsToAdd = 3
+                     elif len(Locations) == 4:
+                          #Hero4S = main.ListSynergies[3]
+                          print("Number 2")
+                          NumRowsToAdd = 2
+                     elif len(Locations) == 5:
+                          #Hero5S = main.ListSynergies[4]
+                          NumRowsToAdd = 1
+                     elif len(Locations) == 6:
+                          #Hero6S = main.ListSynergies[5]
+                        print("Number 1")
+                        NumRowsToAdd = 0
+                     for i in range(NumRowsToAdd):
+                        ListCounters.append(OverwatchData.Nothing.NothingCounters)
+                     print(ListCounters)
+                     HeroSum1 = []
+                     Hero1C = ListCounters[0]
+                     Hero2C = ListCounters[1]
+                     Hero3C = ListCounters[2]
+                     Hero4C = ListCounters[3]
+                     Hero5C = ListCounters[4]
+                     Hero6C = ListCounters[5]
+                     print(Hero1C)
+                     print(Hero2C)
+                     print(Hero3C)
+                     print(Hero4C)
+                     print(Hero5C)
+                     print(Hero6C)
+                     for c in range(31):
+                        HeroSum1.append(Hero1C[c] + Hero2C[c] + Hero3C[c] + Hero4C[c] + Hero5C[c] + Hero6C[c])
+                     for d in range(31):
+                        print(main.HeroList[d],HeroSum1[d])
+                        d =+ 1  
+                findHero()
+                getScores()
+            else:
+                print("Error")
+
+
+
+
         def PrintHeroes():
-            import main
-            for i in range(10):
-                print(main.OverwatchInfo[i])
-        
-        
+            scores = tkinter.Tk()
+        #    e1 = tk.Entry(scores) 
+        #    e2 = tk.Entry(scores) 
+        #    e1.grid(row=0, column=1) 
+        #    e2.grid(row=1, column=1) 
+            text_var = tk.StringVar(scores)
+            text_var.set(scores)
+            tk.Label(scores,textvariable=text_var).pack()
+         #   tk.Label(scores, text='First Name').grid(row=0) 
+         #   tk.Label(scores, textvariable=yelll).grid(row=1)
+            buttonbutton = tk.Button(scores,textvariable=yelll,command=lambda:print("Hello"))
+            buttonbutton.pack()
+            scores.mainloop()
+
         
         def EAnaAppend():
             if len(EHeroList) >= 6:
@@ -648,7 +640,7 @@ class HeroPicker(tk.Frame):
             if len(EHeroList) >= 6:
                 print("Hero List Filled")
             else:
-                EHeroList.append("D.Va")
+                EHeroList.append("DVa")
                 Calculations()
             return EHeroList
         def EDoomfistAppend():
